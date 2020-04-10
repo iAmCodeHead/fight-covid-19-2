@@ -8,9 +8,9 @@ const time = (data) => {
   return convertedTime;
 };
 
-const estimateCurrentlyInfected = (x, timeToElapse) => x * (2 ** (timeToElapse / 3).toFixed(0));
+const estimateCurrentlyInfected = (x, timeToElapse) => x * (2 ** Math.trunc(timeToElapse / 3));
 
-const estimateInfectionsByRequstedTime = (x) => x * 0.15;
+const estimateInfectionsByRequstedTime = (x) => Math.trunc(x * 0.15);
 
 const c = (x, y) => x - y;
 
