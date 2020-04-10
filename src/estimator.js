@@ -14,6 +14,18 @@ const estimateInfectionsByRequstedTime = (x) => x * 0.15;
 
 const c = (x, y) => x - y;
 
+
+const estimated = (resp) => {
+  const x = {
+    data: resp.data,
+    estimate: {
+      impact: resp.impact,
+      severeImpact: resp.severeImpact
+    }
+  };
+  return x;
+};
+
 const covid19ImpactEstimator = (data) => {
   const resp = {
     data,
@@ -23,7 +35,8 @@ const covid19ImpactEstimator = (data) => {
 
   const x1 = resp.impact;
   const y1 = resp.severeImpact;
-
+  const multiY = (y1.infectionsByRequestedTime * data.region.avgDailyIncomePopulation);
+  const multiX = (x1.infectionsByRequestedTime * data.region.avgDailyIncomePopulation);
 
   x1.currentlyInfected = data.reportedCases * 10;
   x1.infectionsByRequestedTime = estimateCurrentlyInfected(x1.currentlyInfected);
@@ -31,7 +44,7 @@ const covid19ImpactEstimator = (data) => {
   x1.hospitalBedsByRequestedTime = c(data.totalHospitalBeds - x1.severeCasesByRequestedTime);
   x1.casesForICUByRequestedTime = x1.infectionsByRequestedTime * 0.05;
   x1.casesForVentilatorsByRequestedTime = x1.infectionsByRequestedTime * 0.02;
-  x1.dollarsInFlight = (x1.infectionsByRequestedTime * data.region.avgDailyIncomePopulation) * data.region.avgDailyIncomeInUSD * time(data);
+  x1.dollarsInFlight = multiX * data.region.avgDailyIncomeInUSD * time(data);
 
   y1.currentlyInfected = data.reportedCases * 50;
   y1.infectionsByRequestedTime = estimateCurrentlyInfected(y1.currentlyInfected);
@@ -39,9 +52,9 @@ const covid19ImpactEstimator = (data) => {
   y1.hospitalBedsByRequestedTime = c(data.totalHospitalBeds - y1.severeCasesByRequestedTime);
   y1.casesForICUByRequestedTime = y1.infectionsByRequestedTime * 0.05;
   y1.casesForVentilatorsByRequestedTime = y1.infectionsByRequestedTime * 0.02;
-  y1.dollarsInFlight = (y1.infectionsByRequestedTime * data.region.avgDailyIncomePopulation) * data.region.avgDailyIncomeInUSD * time(data);
+  y1.dollarsInFlight = multiY * data.region.avgDailyIncomeInUSD * time(data);
 
-  return (resp);
+  return estimated(resp);
 };
 
 export default covid19ImpactEstimator;
