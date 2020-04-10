@@ -8,11 +8,6 @@ const time = (data) => {
   return convertedTime;
 };
 
-const estimateCurrentlyInfected = (timeToElapse) => {
-  const currentInfection = Math.trunc(timeToElapse / 3);
-  return (2 ** currentInfection);
-};
-
 const estimateInfectionsByRequstedTime = (x) => Math.trunc(x * 0.15);
 
 const c = (x, y) => x - y;
@@ -41,7 +36,7 @@ const covid19ImpactEstimator = (data) => {
 
 
   x1.currentlyInfected = data.reportedCases * 10;
-  x1.infectionsByRequestedTime = x1.currentlyInfected * estimateCurrentlyInfected(data.timeToElapse);
+  x1.infectionsByRequestedTime = x1.currentlyInfected * (2 ** Math.trunc(data.timeToElapse / 3));
   x1.severeCasesByRequestedTime = estimateInfectionsByRequstedTime(x1.infectionsByRequestedTime);
   x1.hospitalBedsByRequestedTime = c(data.totalHospitalBeds, x1.severeCasesByRequestedTime);
   x1.casesForICUByRequestedTime = x1.infectionsByRequestedTime * 0.05;
@@ -52,7 +47,7 @@ const covid19ImpactEstimator = (data) => {
   x1.dollarsInFlight = multiX * data.region.avgDailyIncomeInUSD * time(data);
 
   y1.currentlyInfected = data.reportedCases * 50;
-  y1.infectionsByRequestedTime = y1.currentlyInfected * estimateCurrentlyInfected(data.timeToElapse);
+  y1.infectionsByRequestedTime = y1.currentlyInfected * (2 ** Math.trunc(data.timeToElapse / 3));
   y1.severeCasesByRequestedTime = estimateInfectionsByRequstedTime(y1.infectionsByRequestedTime);
   y1.hospitalBedsByRequestedTime = c(data.totalHospitalBeds, y1.severeCasesByRequestedTime);
   y1.casesForICUByRequestedTime = y1.infectionsByRequestedTime * 0.05;
