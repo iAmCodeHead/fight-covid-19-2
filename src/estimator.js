@@ -18,17 +18,6 @@ const y = (data) => {
   return (2 ** Math.trunc(z / 3));
 };
 
-const estimated = (resp) => {
-  const x = {
-    data: resp.data,
-    estimate: {
-      impact: resp.impact,
-      severeImpact: resp.severeImpact
-    }
-  };
-  return x;
-};
-
 const covid19ImpactEstimator = (data) => {
   const resp = {
     data,
@@ -62,7 +51,7 @@ const covid19ImpactEstimator = (data) => {
 
   y1.dollarsInFlight = multiY * data.region.avgDailyIncomeInUSD * time(data);
 
-  return estimated(resp);
+  return (resp);
 };
 
 export default covid19ImpactEstimator;
