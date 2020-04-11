@@ -15,7 +15,7 @@ const c = (x, y) => x - y;
 
 const y = (data) => {
   const z = time(data);
-  return (2 ** Math.trunc(z / 3));
+  return (2 ** (z / 3));
 };
 
 const covid19ImpactEstimator = (data) => {
