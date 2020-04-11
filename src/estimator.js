@@ -8,9 +8,9 @@ const time = (data) => {
   return convertedTime;
 };
 
-const estimateInfectionsByRequstedTime = (x) => (x * 0.15);
+const estimateInfectionsByRequstedTime = (x) => Math.trunc(x * 0.15);
 
-const c = (x, y) => x - y;
+const c = (x, y) => (Math.trunc(x * 0.35) - y);
 
 
 const y = (data) => {
