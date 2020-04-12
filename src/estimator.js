@@ -33,8 +33,8 @@ const covid19ImpactEstimator = (data) => {
   x1.infectionsByRequestedTime = x1.currentlyInfected * y(data);
   x1.severeCasesByRequestedTime = estimateInfectionsByRequstedTime(x1.infectionsByRequestedTime);
   x1.hospitalBedsByRequestedTime = c(data.totalHospitalBeds, x1.severeCasesByRequestedTime);
-  x1.casesForICUByRequestedTime = Math.round(x1.infectionsByRequestedTime * 0.05);
-  x1.casesForVentilatorsByRequestedTime = Math.round(x1.infectionsByRequestedTime * 0.02);
+  x1.casesForICUByRequestedTime = Math.trunc(x1.infectionsByRequestedTime * 0.05);
+  x1.casesForVentilatorsByRequestedTime = Math.trunc(x1.infectionsByRequestedTime * 0.02);
 
   const multiX = (x1.infectionsByRequestedTime * data.region.avgDailyIncomePopulation);
 
@@ -44,8 +44,8 @@ const covid19ImpactEstimator = (data) => {
   y1.infectionsByRequestedTime = y1.currentlyInfected * y(data);
   y1.severeCasesByRequestedTime = estimateInfectionsByRequstedTime(y1.infectionsByRequestedTime);
   y1.hospitalBedsByRequestedTime = c(data.totalHospitalBeds, y1.severeCasesByRequestedTime);
-  y1.casesForICUByRequestedTime = Math.round(y1.infectionsByRequestedTime * 0.05);
-  y1.casesForVentilatorsByRequestedTime = Math.round(y1.infectionsByRequestedTime * 0.02);
+  y1.casesForICUByRequestedTime = Math.trunc(y1.infectionsByRequestedTime * 0.05);
+  y1.casesForVentilatorsByRequestedTime = Math.trunc(y1.infectionsByRequestedTime * 0.02);
 
   const multiY = (y1.infectionsByRequestedTime * data.region.avgDailyIncomePopulation);
 
