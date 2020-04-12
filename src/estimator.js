@@ -8,14 +8,14 @@ const time = (data) => {
   return convertedTime;
 };
 
-const estimateInfectionsByRequstedTime = (x) => Math.trunc(x * 0.15);
+const estimateInfectionsByRequstedTime = (x) => Math.round(x * 0.15);
 
-const c = (x, y) => (Math.trunc(x * 0.35) - y);
+const c = (x, y) => (Math.round(x * 0.35) - y);
 
 
 const y = (data) => {
   const z = time(data);
-  return (2 ** Math.trunc(z / 3));
+  return (2 ** Math.round(z / 3));
 };
 
 const covid19ImpactEstimator = (data) => {
