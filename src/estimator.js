@@ -1,5 +1,8 @@
 const time = (data) => {
-  let convertedTime = data.timeToElapse;
+  let convertedTime;
+  if (data.periodType.toLowerCase() === 'days') {
+    convertedTime = data.timeToElapse;
+  }
   if (data.periodType.toLowerCase() === 'weeks') {
     convertedTime = data.timeToElapse * 7;
   } if (data.periodType.toLowerCase() === 'months') {
