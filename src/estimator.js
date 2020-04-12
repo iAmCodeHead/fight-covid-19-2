@@ -8,7 +8,11 @@ const time = (data) => {
   return convertedTime;
 };
 
-const estimateInfectionsByRequstedTime = (x) => Math.round(x * 0.15);
+const estimateInfections = (x) => Math.round(x * 0.15);
+
+const estimateCasesForICU = (x) => Math.round(x * 0.05);
+
+const estimateVentilators = (x) => Math.round(x * 0.02);
 
 const c = (x, y) => (Math.round(x * 0.35) - y);
 
@@ -31,10 +35,10 @@ const covid19ImpactEstimator = (data) => {
 
   x1.currentlyInfected = data.reportedCases * 10;
   x1.infectionsByRequestedTime = x1.currentlyInfected * y(data);
-  x1.severeCasesByRequestedTime = estimateInfectionsByRequstedTime(x1.infectionsByRequestedTime);
+  x1.severeCasesByRequestedTime = estimateInfections(x1.infectionsByRequestedTime);
   x1.hospitalBedsByRequestedTime = c(data.totalHospitalBeds, x1.severeCasesByRequestedTime);
-  x1.casesForICUByRequestedTime = Math.trunc(x1.infectionsByRequestedTime * 0.05);
-  x1.casesForVentilatorsByRequestedTime = Math.trunc(x1.infectionsByRequestedTime * 0.02);
+  x1.casesForICUByRequestedTime = estimateCasesForICU(x1.infectionsByRequestedTime);
+  x1.casesForVentilatorsByRequestedTime = estimateVentilators(x1.infectionsByRequestedTime);
 
   const multiX = (x1.infectionsByRequestedTime * data.region.avgDailyIncomePopulation);
 
@@ -42,10 +46,10 @@ const covid19ImpactEstimator = (data) => {
 
   y1.currentlyInfected = data.reportedCases * 50;
   y1.infectionsByRequestedTime = y1.currentlyInfected * y(data);
-  y1.severeCasesByRequestedTime = estimateInfectionsByRequstedTime(y1.infectionsByRequestedTime);
+  y1.severeCasesByRequestedTime = estimateInfections(y1.infectionsByRequestedTime);
   y1.hospitalBedsByRequestedTime = c(data.totalHospitalBeds, y1.severeCasesByRequestedTime);
-  y1.casesForICUByRequestedTime = Math.trunc(y1.infectionsByRequestedTime * 0.05);
-  y1.casesForVentilatorsByRequestedTime = Math.trunc(y1.infectionsByRequestedTime * 0.02);
+  y1.casesForICUByRequestedTime = estimateCasesForICU(y1.infectionsByRequestedTime);
+  y1.casesForVentilatorsByRequestedTime = estimateVentilators(y1.infectionsByRequestedTime);
 
   const multiY = (y1.infectionsByRequestedTime * data.region.avgDailyIncomePopulation);
 
